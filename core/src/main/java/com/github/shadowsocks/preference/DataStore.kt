@@ -65,7 +65,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     val directBootAware: Boolean get() = Core.directBootSupported && canToggleLocked
     val tcpFastOpen: Boolean get() = TcpFastOpen.sendEnabled && DataStore.publicStore.getBoolean(Key.tfo, true)
     val converter: Boolean get() = publicStore.getBoolean(Key.converter, true)
-    val mptcp: Boolean get() = publicStore.getBoolean(Key.mptcp, false)
+    val mptcp: Boolean get() = publicStore.getBoolean(Key.mptcp, true)
     val serviceMode get() = publicStore.getString(Key.serviceMode) ?: Key.modeVpn
 
     /**
