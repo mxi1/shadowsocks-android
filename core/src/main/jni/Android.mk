@@ -155,6 +155,21 @@ LOCAL_SRC_FILES := $(addprefix shadowsocks-libev/libbloom/, $(BLOOM_SOURCE))
 include $(BUILD_STATIC_LIBRARY)
 
 ########################################################
+## libconvert_util
+########################################################
+
+include $(CLEAR_VARS)
+
+CONVERT_UTIL_SOURCE := convert_util.c
+
+LOCAL_MODULE := libconvert_util
+LOCAL_CFLAGS += -I$(LOCAL_PATH)/shadowsocks-libev/libconvert
+
+LOCAL_SRC_FILES := $(addprefix shadowsocks-libev/libconvert/, $(CONVERT_UTIL_SOURCE))
+
+include $(BUILD_STATIC_LIBRARY)
+
+########################################################
 ## libipset
 ########################################################
 
@@ -269,9 +284,10 @@ LOCAL_CFLAGS    := -Wall -fno-strict-aliasing -DMODULE_LOCAL \
 					-I$(LOCAL_PATH)/shadowsocks-libev/libcork/include \
 					-I$(LOCAL_PATH)/shadowsocks-libev/libipset/include \
 					-I$(LOCAL_PATH)/shadowsocks-libev/libbloom \
+					-I$(LOCAL_PATH)/shadowsocks-libev/libconvert \
 					-I$(LOCAL_PATH)/libev
 
-LOCAL_STATIC_LIBRARIES := libev libmbedtls libipset libcork libbloom \
+LOCAL_STATIC_LIBRARIES := libev libmbedtls libipset libcork libbloom libconvert_util \
 	libsodium libancillary libpcre
 
 LOCAL_LDLIBS := -llog

@@ -64,6 +64,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     val canToggleLocked: Boolean get() = publicStore.getBoolean(Key.directBootAware) == true
     val directBootAware: Boolean get() = Core.directBootSupported && canToggleLocked
     val tcpFastOpen: Boolean get() = TcpFastOpen.sendEnabled && DataStore.publicStore.getBoolean(Key.tfo, true)
+    val converter: Boolean get() = publicStore.getBoolean(Key.converter, true)
     val serviceMode get() = publicStore.getString(Key.serviceMode) ?: Key.modeVpn
 
     /**
@@ -102,6 +103,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
      */
     fun initGlobal() {
         if (publicStore.getBoolean(Key.tfo) == null) publicStore.putBoolean(Key.tfo, tcpFastOpen)
+        if (publicStore.getBoolean(Key.converter) == null) publicStore.putBoolean(Key.converter, converter)
         if (publicStore.getString(Key.portProxy) == null) portProxy = portProxy
         if (publicStore.getString(Key.portLocalDns) == null) portLocalDns = portLocalDns
         if (publicStore.getString(Key.portTransproxy) == null) portTransproxy = portTransproxy

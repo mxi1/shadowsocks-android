@@ -160,7 +160,9 @@ class VpnService : BaseVpnService(), LocalDnsService.Interface {
                 .setSession(profile.formattedName)
                 .setMtu(VPN_MTU)
                 .addAddress(PRIVATE_VLAN4_CLIENT, 30)
-                .addDnsServer(PRIVATE_VLAN4_ROUTER)
+
+        if (!DataStore.converter)
+            builder.addDnsServer(PRIVATE_VLAN4_ROUTER)
 
         if (profile.ipv6) {
             builder.addAddress(PRIVATE_VLAN6_CLIENT, 126)
@@ -205,13 +207,16 @@ class VpnService : BaseVpnService(), LocalDnsService.Interface {
                 "--socks-server-addr", "${DataStore.listenAddress}:${DataStore.portProxy}",
                 "--tunmtu", VPN_MTU.toString(),
                 "--sock-path", "sock_path",
-                "--dnsgw", "127.0.0.1:${DataStore.portLocalDns}",
                 "--loglevel", "warning")
+        if (!DataStore.converter) {
+            cmd += "--dnsgw"
+            cmd += "127.0.0.1:${DataStore.portLocalDns}"
+            cmd += "--enable-udprelay"
+        }
         if (profile.ipv6) {
             cmd += "--netif-ip6addr"
             cmd += PRIVATE_VLAN6_ROUTER
         }
-        cmd += "--enable-udprelay"
         data.processes!!.start(cmd, onRestartCallback = {
             try {
                 sendFd(conn.fileDescriptor)

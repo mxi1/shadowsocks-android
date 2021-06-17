@@ -134,6 +134,8 @@ class ProxyInstance(val profile: Profile, private val route: String = profile.ro
 
         if (DataStore.tcpFastOpen) cmd += "--fast-open"
 
+        if (DataStore.converter) cmd += "--converter"
+
         service.data.processes!!.start(cmd)
     }
 
