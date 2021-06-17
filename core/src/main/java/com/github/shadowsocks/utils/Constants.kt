@@ -66,6 +66,7 @@ object Key {
 
     const val tfo = "tcp_fastopen"
     const val converter = "converter"
+    const val mptcp = "mptcp"
     const val assetUpdateTime = "assetUpdateTime"
 
     // TV specific values
