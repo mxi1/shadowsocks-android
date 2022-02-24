@@ -7,6 +7,8 @@ android {
     buildToolsVersion rootProject.buildToolsVersion
     compileSdkVersion rootProject.compileSdkVersion
 
+    ndkPath "/usr/local/lib/android/sdk/ndk-bundle/"
+
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.sdkVersion
